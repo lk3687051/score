@@ -10,9 +10,11 @@
 
   function RatingController($scope, $http, $location) {
     $scope.target_name="&"
+    $scope.total=0
     $scope.user=""
     $scope.isReadonly=true;
     $scope.target_id=$location.search().id;
+    $scope.checks=""
     get_name($scope)
     get_conf($scope)
 
@@ -52,9 +54,16 @@
           });
         };
 
-    this.rateFunction = function(rating) {
-      console.log('Rating selected: ' + rating);
+
+    $scope.rateFunction = function(checks) {
+
+         var total_score = 0;
+          for (var i=0; i < checks.length; i++) {
+              total_score += Number(checks[i].rating);
+          }
+        $scope.total=total_score
     };
+    $scope.rateFunction($scope.checks)
   }
 
   function starRating() {
@@ -68,6 +77,8 @@
         '</ul>',
       scope: {
         ratingValue: '=ngModel',
+        totle_fn: '=func',
+        args:'=arg',
         max: '=?', // optional (default is 5)
         onRatingSelect: '&?',
         readonly: '=?'
@@ -95,6 +106,7 @@
         scope.$watch('ratingValue', function(oldValue, newValue) {
           if (newValue) {
             updateStars();
+            scope.totle_fn(scope.args)
           }
         });
       }

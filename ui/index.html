@@ -53,7 +53,7 @@
         <td>{{check.name_cn}}</td>
         <td>{{check.desc_cn}}</td>
         <td>
-          <div star-rating ng-model="check.rating" max="5" on-rating-select="rating.rateFunction(rating)"></div>
+          <div star-rating ng-model="check.rating" func='rateFunction' arg="checks" max="5"></div>
         </td>
       </tr>
       <tr>
@@ -61,6 +61,7 @@
           <p>你的姓名: </p>
         </td>
         <td><input type="text" ng-model="user" name="name" /></td>
+        <td><input type="text" ng-model="total" name="score" /></td>
       </tr>
       <tr>
         <td>
