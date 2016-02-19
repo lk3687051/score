@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+  <meta charset="UTF-8">
+  <title>I am good</title>
+
+
+
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
+
+  <style>
+    /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+
+    .star-rating {
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+    }
+
+    .star-rating .star {
+      padding: 1px;
+      color: #ddd;
+      font-size: 20px;
+      text-shadow: .05em .05em #aaa;
+      list-style-type: none;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .star-rating .star.filled {
+      color: #fd0;
+    }
+
+    .star-rating.readonly .star.filled {
+      color: #666;
+    }
+  </style>
+
+
+  <script src="static/js/prefixfree.min.js"></script>
+  <script src='static/js/angular.min.js'></script>
+  <script src="static/js/index.js"></script>
+
+</head>
+
+<body ng-controller="RatingController as rating">
+  <h1>请评价{{rating.myname}}</h1>
+  <form name="form" ng-submit="rating.submitForm()">
+    <table style="width:100%">
+      <tr ng-repeat="check in rating.checks">
+        <td>{{check.name_cn}}</td>
+        <td>{{check.desc_cn}}</td>
+        <td>
+          <div star-rating ng-model="check.rating" max="5" on-rating-select="rating.rateFunction(rating)"></div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>你的姓名: </p>
+        </td>
+        <td><input type="text" ng-model="rating.user" name="name" /></td>
+      </tr>
+      <tr>
+        <td>
+          <input type="submit" value="提交">
+        </td>
+      </tr>
+    </table>
+
+  </form>
+
+</body>
+
+</html>
