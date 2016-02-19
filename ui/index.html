@@ -46,10 +46,10 @@
 </head>
 
 <body ng-controller="RatingController as rating">
-  <h1>请评价{{rating.myname}}</h1>
-  <form name="form" ng-submit="rating.submitForm()">
+  <h1>请评价{{target_name}}</h1>
+  <form name="form" ng-submit="savescore(user,target_id,checks)">
     <table style="width:100%">
-      <tr ng-repeat="check in rating.checks">
+      <tr ng-repeat="check in checks">
         <td>{{check.name_cn}}</td>
         <td>{{check.desc_cn}}</td>
         <td>
@@ -60,7 +60,7 @@
         <td>
           <p>你的姓名: </p>
         </td>
-        <td><input type="text" ng-model="rating.user" name="name" /></td>
+        <td><input type="text" ng-model="user" name="name" /></td>
       </tr>
       <tr>
         <td>

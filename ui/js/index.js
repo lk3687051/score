@@ -8,34 +8,40 @@
     .controller('RatingController', RatingController)
     .directive('starRating', starRating);
 
-  function RatingController($http) {
-    this.myname="Â½¿µ"
-    this.user=""
-    this.isReadonly = true;
-      this.checks=[{
-              id: "01",
-              name_cn: "Ë§Æø",
-              name_en: "handsome",
-              desc_cn: "hhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
-              desc_en: "hhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
-              score: "5",
-              rating: "2"
-            }, {
-              id: "02",
-              name_cn: "¾­¼Ã",
-              name_en: "emkkk",
-              desc_cn: "hhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
-              desc_en: "hhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
-              score: "5",
-              rating: "2"
-            }
-      ]
-      this.submitForm = function() {
+  function RatingController($scope, $http, $location) {
+    $scope.target_name="&"
+    $scope.user=""
+    $scope.isReadonly=true;
+    $scope.target_id=$location.search().id;
+    get_name($scope)
+    get_conf($scope)
+
+      function get_name($scope){
+      $http({
+        method  : 'GET',
+        url     : '/user/show/' + $scope.target_id,
+       })
+        .success(function(data) {
+          $scope.target_name = data
+        });
+      }
+
+    function get_conf($scope){
+        $http({
+          method  : 'GET',
+          url     : '/config/list',
+         })
+          .success(function(data) {
+            $scope.checks = angular.fromJson(data)
+          });
+        }
+
+      $scope.savescore = function(user, target, checks) {
         // Posting data to php file
         $http({
           method  : 'POST',
-          url     : 'save/' + this.user,
-          data    : angular.toJson(this.checks), //forms user object
+          url     : "/score/add/" + user + "/" + target,
+          data    : angular.toJson(checks), //forms user object
           headers : {'Content-Type': 'application/json'}
          })
           .success(function(data) {
