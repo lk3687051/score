@@ -7,7 +7,7 @@ import redis
 
 app = Flask(__name__)
 r_client = redis.Redis(host = 'local', port = 6357, db = 0)
-port = int(os.getenv("VCAP_APP_PORT"))
+#port = int(os.getenv("VCAP_APP_PORT")
 
 @app.route('/')
 def hello_world():
@@ -77,7 +77,7 @@ def conf_list():
               'desc_cn': u"风趣的人，大多是十分乐观的人。具有积极向上的人生态度和百折不回的精神，不论遇到什么，都不忘记给你带来欢乐",
               'desc_en': "please mark for his humorous",
               'score': "5",
-              'rating': "2"
+              'rating': "0"
             },
             {
               'id': "07",
@@ -156,5 +156,5 @@ def score_del():
 
 if __name__ == '__main__':
     #app.config['UPLOAD_FOLDER'] = '/home/vcap/app/ui/'
-    app.config['UPLOAD_FOLDER'] = '/root/share/score/ui/'
+    app.config['UPLOAD_FOLDER'] = '/home/cindy/tmp/score/ui/'
     app.run(host='0.0.0.0', port=8000)
